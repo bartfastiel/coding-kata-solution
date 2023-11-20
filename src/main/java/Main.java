@@ -15,6 +15,8 @@ class Main {
         }
         int numberOfUniqueCharacters = Integer.parseInt(str.substring(0, 1));
         String remainingString = str.substring(1);
+
+        // do not use char, because the string might contain foreign characters or emojis
         int[] codePoints = remainingString.codePoints().toArray();
 
         int startOfLongestSequence = 0;
@@ -42,7 +44,7 @@ class Main {
 
             if (mode == Mode.INCREASE_START) {
                 var firstCharacterOfOldSequence = codePoints[startOfSequence - 1];
-                uniqueCharacterHistogram.compute(firstCharacterOfOldSequence, (key, value) -> value > 1 ? value - 1 : null);
+                uniqueCharacterHistogram.compute(firstCharacterOfOldSequence, (key, value) -> value > 1 ? --value : null);
             }
 
             if (uniqueCharacterHistogram.size() > numberOfUniqueCharacters) {
