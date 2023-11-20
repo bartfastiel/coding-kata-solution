@@ -6,7 +6,8 @@ class Main {
         if (str.isEmpty()) {
             throw new IllegalArgumentException("Empty string");
         }
-        return str.substring(1);
+        int numberOfUniqueCharacters = Integer.parseInt(str.substring(0, 1));
+        return str.substring(1, numberOfUniqueCharacters + 1);
     }
 
     public static void main(String[] args) {

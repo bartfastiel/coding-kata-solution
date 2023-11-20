@@ -20,6 +20,7 @@ class MainTest {
             "0=",
             "1a=a",
             "2ab=ab",
+            "1ab=a",
     }, delimiter = '=')
     void check(String input, String expected) {
         String solution = Main.KUniqueCharacters(input);
