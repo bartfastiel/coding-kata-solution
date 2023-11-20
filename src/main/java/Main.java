@@ -22,7 +22,10 @@ class Main {
                 lengthOfLongestSequence = lengthOfSequence;
             }
 
-            // potential optimization (for later): if we found a sequence of 3, then last two characters can be skipped
+            // optimization: if the remaining string is shorter than the longest sequence found so far, we can stop
+            if (startOfSequence + lengthOfLongestSequence >= codePoints.length - 1) {
+                break;
+            }
         }
 
         return remainingString.substring(startOfLongestSequence, startOfLongestSequence + lengthOfLongestSequence);
