@@ -13,4 +13,10 @@ class MainTest {
         }
     }
 
+    @Test
+    void expectEmptyString_whenStringContains0() {
+        String solution = Main.KUniqueCharacters("0");
+        Assertions.assertEquals("", solution);
+    }
+
 }

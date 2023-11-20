@@ -6,7 +6,7 @@ class Main {
         if (str.isEmpty()) {
             throw new IllegalArgumentException("Empty string");
         }
-        return str;
+        return str.substring(1);
     }
 
     public static void main(String[] args) {
