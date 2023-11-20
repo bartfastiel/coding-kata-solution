@@ -3,12 +3,13 @@ import java.util.Scanner;
 class Main {
 
     public static String KUniqueCharacters(String str) {
-        // code goes here
+        if (str.isEmpty()) {
+            throw new IllegalArgumentException("Empty string");
+        }
         return str;
     }
 
-    public static void main (String[] args) {
-        // keep this function call here
+    public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         System.out.print(KUniqueCharacters(s.nextLine()));
     }
