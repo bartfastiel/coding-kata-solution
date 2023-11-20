@@ -2,14 +2,29 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class MainTest {
 
-    @Test
-    void expectException_whenStringIsEmpty() {
+    @ParameterizedTest
+    @ValueSource(strings = {
+            // number of unique characters must be a number
+            "",
+            ":",
+            "X",
+
+            // number of unique characters must be >0 and <6
+            "0",
+            "0asd",
+            "7",
+            "7asd",
+            "9",
+            "9asd",
+    })
+    void expectException_whenInputIsInvalid(String input) {
         try {
-            Main.KUniqueCharacters("");
-            Assertions.fail("Empty string did not raise exception");
+            Main.KUniqueCharacters(input);
+            Assertions.fail("Did not raise exception for String '"+input+"'");
         } catch (IllegalArgumentException e) {
             // well done: illegal argument detected
         }
@@ -17,7 +32,6 @@ class MainTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-            "0=",
             "1a=a",
             "2ab=ab",
             "1ab=a",

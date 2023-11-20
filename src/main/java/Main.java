@@ -13,7 +13,11 @@ class Main {
         if (str.isEmpty()) {
             throw new IllegalArgumentException("Empty string");
         }
-        int numberOfUniqueCharacters = Integer.parseInt(str.substring(0, 1));
+        char numberOfUniqueCharactersLetter = str.charAt(0);
+        if (numberOfUniqueCharactersLetter < '1' || numberOfUniqueCharactersLetter > '6') {
+            throw new IllegalArgumentException("Number of unique characters must be between 1 and 6");
+        }
+        int numberOfUniqueCharacters = numberOfUniqueCharactersLetter - '0';
         String remainingString = str.substring(1);
 
         // do not use char, because the string might contain foreign characters or emojis
