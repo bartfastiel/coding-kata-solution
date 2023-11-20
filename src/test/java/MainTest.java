@@ -19,4 +19,10 @@ class MainTest {
         Assertions.assertEquals("", solution);
     }
 
+    @Test
+    void expectA_whenStringContains1a() {
+        String solution = Main.KUniqueCharacters("1a");
+        Assertions.assertEquals("a", solution);
+    }
+
 }
