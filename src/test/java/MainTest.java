@@ -24,6 +24,7 @@ class MainTest {
             "1abb=bb",
             "1aabb=aa",
             "2aabbacbaa=aabba",
+            "3aabacbebebe=cbebebe",
     }, delimiter = '=')
     void check(String input, String expected) {
         String solution = Main.KUniqueCharacters(input);
