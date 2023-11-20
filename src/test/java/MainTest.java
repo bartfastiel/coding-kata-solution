@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class MainTest {
 
@@ -13,16 +15,16 @@ class MainTest {
         }
     }
 
-    @Test
-    void expectEmptyString_whenStringContains0() {
-        String solution = Main.KUniqueCharacters("0");
-        Assertions.assertEquals("", solution);
+    @ParameterizedTest
+    @CsvSource(value = {
+            "0=",
+            "1a=a"
+    }, delimiter = '=')
+    void check(String input, String expected) {
+        String solution = Main.KUniqueCharacters(input);
+        if (expected == null) {
+            expected = "";
+        }
+        Assertions.assertEquals(expected, solution);
     }
-
-    @Test
-    void expectA_whenStringContains1a() {
-        String solution = Main.KUniqueCharacters("1a");
-        Assertions.assertEquals("a", solution);
-    }
-
 }
