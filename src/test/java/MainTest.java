@@ -18,7 +18,8 @@ class MainTest {
     @ParameterizedTest
     @CsvSource(value = {
             "0=",
-            "1a=a"
+            "1a=a",
+            "2ab=ab",
     }, delimiter = '=')
     void check(String input, String expected) {
         String solution = Main.KUniqueCharacters(input);
