@@ -34,4 +34,14 @@ class MainTest {
         }
         Assertions.assertEquals(expected, solution);
     }
+
+    @Test
+    void performanceTest() {
+        long startTime = System.currentTimeMillis();
+        String input = "6" + "a".repeat(100_000_000);
+        Main.KUniqueCharacters(input);
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+        System.out.println("Duration: " + duration + "ms");
+    }
 }
