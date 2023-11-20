@@ -1,8 +1,13 @@
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 class Main {
+
+    enum Mode {
+        INCREASE_LENGTH,
+        INCREASE_START,
+    }
 
     public static String KUniqueCharacters(String str) {
         if (str.isEmpty()) {
@@ -15,37 +20,46 @@ class Main {
         int startOfLongestSequence = 0;
         int lengthOfLongestSequence = 0;
 
-        for (var startOfSequence = 0; startOfSequence < codePoints.length; startOfSequence++) {
-            int lengthOfSequence = getLengthOfSequence(codePoints, startOfSequence, numberOfUniqueCharacters);
-            if (lengthOfSequence > lengthOfLongestSequence) {
-                startOfLongestSequence = startOfSequence;
-                lengthOfLongestSequence = lengthOfSequence;
+        Map<Integer, Integer> uniqueCharacterHistogram = new HashMap<>();
+
+        var startOfSequence = 0;
+        var lengthOfSequence = 0;
+        Mode mode = Mode.INCREASE_LENGTH;
+        for (; ; ) {
+            if (startOfSequence + lengthOfSequence + 1 > codePoints.length) {
+                break;
             }
 
-            // optimization: if the remaining string is shorter than the longest sequence found so far, we can stop
-            if (startOfSequence + lengthOfLongestSequence >= codePoints.length - 1) {
-                break;
+            // we either increase the size of our moving window until we have enough unique characters
+            if (mode == Mode.INCREASE_LENGTH) {
+                lengthOfSequence++;
+            }
+
+            // or we move the window until we found a spot, where more characters can be added
+            else {
+                startOfSequence++;
+            }
+
+            var lastCodePointOfNewSequence = codePoints[startOfSequence + lengthOfSequence - 1];
+            uniqueCharacterHistogram.merge(lastCodePointOfNewSequence, 1, Integer::sum);
+
+            if (mode == Mode.INCREASE_START) {
+                var firstCharacterOfOldSequence = codePoints[startOfSequence - 1];
+                uniqueCharacterHistogram.compute(firstCharacterOfOldSequence, (key, value) -> value > 1 ? value - 1 : null);
+            }
+
+            if (uniqueCharacterHistogram.size() > numberOfUniqueCharacters) {
+                mode = Mode.INCREASE_START;
+            } else {
+                mode = Mode.INCREASE_LENGTH;
+                if (lengthOfSequence > lengthOfLongestSequence) {
+                    startOfLongestSequence = startOfSequence;
+                    lengthOfLongestSequence = lengthOfSequence;
+                }
             }
         }
 
         return remainingString.substring(startOfLongestSequence, startOfLongestSequence + lengthOfLongestSequence);
-    }
-
-    private static int getLengthOfSequence(int[] codePoints, int startOfSequence, int numberOfUniqueCharacters) {
-        Set<Integer> uniqueCharacters = new HashSet<>();
-        uniqueCharacters.add(codePoints[startOfSequence]);
-        var j = startOfSequence + 1;
-        for (; j < codePoints.length; j++) {
-            if (uniqueCharacters.contains(codePoints[j])) {
-                continue;
-            }
-            uniqueCharacters.add(codePoints[j]);
-            if (uniqueCharacters.size() > numberOfUniqueCharacters) {
-                break;
-            }
-        }
-
-        return j - startOfSequence;
     }
 
     public static void main(String[] args) {
