@@ -25,10 +25,7 @@ class Main {
         var startOfSequence = 0;
         var lengthOfSequence = 0;
         Mode mode = Mode.INCREASE_LENGTH;
-        for (; ; ) {
-            if (startOfSequence + lengthOfSequence + 1 > codePoints.length) {
-                break;
-            }
+        while (startOfSequence + lengthOfSequence < codePoints.length) {
 
             // we either increase the size of our moving window until we have enough unique characters
             if (mode == Mode.INCREASE_LENGTH) {
